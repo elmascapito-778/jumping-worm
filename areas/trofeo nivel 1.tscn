@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://3ugmym1dxrur"]
+
+[ext_resource type="Texture2D" uid="uid://bmtv7l5lqaco" path="res://New Piskel (1).png" id="1_or27e"]
+
+[sub_resource type="GDScript" id="GDScript_5ygbu"]
+script/source = "extends Area2D
+
+
+func _on_body_entered(body: Node2D) -> void:
+	
+	if body.name == \"gusanito\":
+		call_deferred(\"_change_level\")
+		
+
+func _change_level():
+	get_tree().change_scene_to_file(\"res://niveles/nivel 2.tscn\")
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xkmca"]
+size = Vector2(349, 320)
+
+[node name="Area2D" type="Area2D" unique_id=1705871555 groups=["gusanito"]]
+script = SubResource("GDScript_5ygbu")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1068739159]
+position = Vector2(-9, 64)
+texture = ExtResource("1_or27e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=47206992]
+position = Vector2(4.5, 7)
+shape = SubResource("RectangleShape2D_xkmca")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://c7plkfv8tejfu"]
+
+[sub_resource type="GDScript" id="GDScript_3j4ue"]
+script/source = "extends Area2D
+
+
+
+
+
+func _on_body_entered(body: Node2D) -> void:
+	
+	if body.name == \"gusanito\":
+		body.respawn()
+"
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xgxqx"]
+distance = 1.0
+
+[node name="zona de matar" type="Area2D" unique_id=973675427]
+script = SubResource("GDScript_3j4ue")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1412993379]
+position = Vector2(-1, 1)
+shape = SubResource("WorldBoundaryShape2D_xgxqx")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

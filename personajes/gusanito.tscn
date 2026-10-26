@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://d1lijpqaa5xpw"]
+
+[ext_resource type="Texture2D" uid="uid://b2hvy8yn0bx2k" path="res://New Piskel (2).png" id="1_wjx3i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b37mo"]
+size = Vector2(174, 60)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5ygbu"]
+size = Vector2(111, 101)
+
+[node name="gusanito" type="CharacterBody2D" unique_id=1422212080]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1952173040]
+texture = ExtResource("1_wjx3i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1775432587]
+position = Vector2(-4, 62)
+shape = SubResource("RectangleShape2D_b37mo")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=737925513]
+position = Vector2(68.5, -24.5)
+shape = SubResource("RectangleShape2D_5ygbu")

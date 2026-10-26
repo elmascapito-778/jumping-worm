@@ -1,0 +1,122 @@
+[gd_scene format=3 uid="uid://cklcmo2546vl"]
+
+[ext_resource type="PackedScene" uid="uid://bcpy8f0x8uiio" path="res://pisos y plataformas/piso cesped.tscn" id="1_00pmg"]
+[ext_resource type="Texture2D" uid="uid://dg7u2ck7ahuvl" path="res://fondo4.png" id="1_jj7u5"]
+[ext_resource type="PackedScene" uid="uid://bkt6ly63g8ees" path="res://pisos y plataformas/plataforma cesped.tscn" id="2_1qhi7"]
+[ext_resource type="PackedScene" uid="uid://3ugmym1dxrur" path="res://areas/trofeo nivel 1.tscn" id="2_8i8ws"]
+[ext_resource type="PackedScene" uid="uid://d1lijpqaa5xpw" path="res://personajes/gusanito.tscn" id="3_1qhi7"]
+[ext_resource type="PackedScene" uid="uid://c7plkfv8tejfu" path="res://areas/zona_de_matar.tscn" id="4_xgxqx"]
+[ext_resource type="AudioStream" uid="uid://esyt71j681im" path="res://Electric - 5 Minute Countdown.mp3" id="7_3r582"]
+
+[sub_resource type="GDScript" id="GDScript_8i8ws"]
+script/source = "extends Node2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[sub_resource type="GDScript" id="GDScript_xgxqx"]
+script/source = "extends CharacterBody2D
+
+
+const SPEED = 500.0
+const JUMP_VELOCITY = -700.0
+
+func respawn():
+	self.global_position = Vector2(-528, -2)
+
+
+
+func _physics_process(delta: float) -> void:
+	# Add the gravity.
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+
+	# Handle jump.
+	if Input.is_action_just_pressed(\"saltar\") and is_on_floor():
+		velocity.y = JUMP_VELOCITY
+
+	# Get the input direction and handle the movement/deceleration.
+	# As good practice, you should replace UI actions with custom gameplay actions.
+	var direction := Input.get_axis(\"izquierda\", \"derecha\")
+	if direction:
+		velocity.x = direction * SPEED
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+
+	move_and_slide()
+"
+
+[node name="Node2D" type="Node2D" unique_id=825611504]
+script = SubResource("GDScript_8i8ws")
+
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=737927231]
+scroll_scale = Vector2(0.2, 0.2)
+repeat_size = Vector2(2304.36, 1296.48)
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=289440019]
+position = Vector2(576.00006, 324.00003)
+scale = Vector2(3.114, 1.752)
+texture = ExtResource("1_jj7u5")
+
+[node name="gusanito" parent="." unique_id=1422212080 instance=ExtResource("3_1qhi7")]
+position = Vector2(-528, -2)
+script = SubResource("GDScript_xgxqx")
+
+[node name="Camera2D" type="Camera2D" parent="gusanito" unique_id=985046202]
+zoom = Vector2(0.5, 0.5)
+position_smoothing_enabled = true
+
+[node name="StaticBody2D" parent="." unique_id=373300705 instance=ExtResource("1_00pmg")]
+position = Vector2(-17, 316)
+
+[node name="StaticBody2D3" parent="." unique_id=697855374 instance=ExtResource("2_1qhi7")]
+position = Vector2(1406, 212)
+
+[node name="StaticBody2D4" parent="." unique_id=865380890 instance=ExtResource("2_1qhi7")]
+position = Vector2(2209, 216)
+
+[node name="StaticBody2D2" parent="." unique_id=1573120611 instance=ExtResource("2_1qhi7")]
+position = Vector2(2847, 76)
+
+[node name="StaticBody2D5" parent="." unique_id=38062958 instance=ExtResource("2_1qhi7")]
+position = Vector2(3597, -48)
+
+[node name="StaticBody2D6" parent="." unique_id=362158913 instance=ExtResource("2_1qhi7")]
+position = Vector2(4353, 120)
+
+[node name="StaticBody2D7" parent="." unique_id=1609845827 instance=ExtResource("1_00pmg")]
+position = Vector2(5794, 466)
+
+[node name="StaticBody2D8" parent="." unique_id=95840314 instance=ExtResource("2_1qhi7")]
+position = Vector2(7062, 479)
+
+[node name="StaticBody2D9" parent="." unique_id=1957057960 instance=ExtResource("2_1qhi7")]
+position = Vector2(7811, 848)
+
+[node name="StaticBody2D10" parent="." unique_id=43724272 instance=ExtResource("2_1qhi7")]
+position = Vector2(8603, 871)
+
+[node name="StaticBody2D11" parent="." unique_id=1319528188 instance=ExtResource("2_1qhi7")]
+position = Vector2(9485, 758)
+
+[node name="StaticBody2D12" parent="." unique_id=991592051 instance=ExtResource("1_00pmg")]
+position = Vector2(11008, 959)
+
+[node name="zona de matar" parent="." unique_id=973675427 instance=ExtResource("4_xgxqx")]
+position = Vector2(-994, 2215)
+
+[node name="Area2D" parent="." unique_id=1705871555 instance=ExtResource("2_8i8ws")]
+position = Vector2(11501, 527)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=178910887]
+stream = ExtResource("7_3r582")
+volume_db = -16.421
+autoplay = true
